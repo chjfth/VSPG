@@ -21,9 +21,12 @@ if "%3" == "" (
 REM Copy files of various patterns to multiple destination directories.
 REM This function is a cycled wrapper of CopyFilePatterns.bat, to suppor multiple dirs.
 REM 
-REM Param1: One source folder.
-REM Param2: The varname that contains source-patterns.
-REM Param3: The varname that contains dest-dirs.
+REM Usage:
+REM 	CopyFilePatternsToDirs <SrcDir> <Varname-SrcPattern> <Varname-DstDirs>
+REM 
+REM <SrcDir>             : One source directory.
+REM <Varname-SrcPattern> : The varname that contains source-patterns.
+REM <Varname-DstDirs>    : The varname that contains destination dirs.
 REM 
 REM See CopyFilePatterns.bat for other memos.
 
@@ -33,6 +36,16 @@ set varname_dst=%~3
 
 call set src_patterns=%%%varname_src%%%
 call set dst_dirs=%%%varname_dst%%%
+
+if not defined src_patterns (
+	call :Echos [ERROR] The varname '%varname_src%' refers to empty list of patterns.
+	exit /b 4
+)
+
+if not defined dst_dirs (
+	call :Echos [ERROR] The varname '%varname_dst%' refers to empty list of directories.
+	exit /b 4
+)
 
 for %%d in (%dst_dirs%) do (
 
@@ -46,7 +59,7 @@ for %%d in (%dst_dirs%) do (
 		)
 	)
 	
-	call :Echos    call "%batdir%\CopyFilePatterns.bat" "%srcdir%" "!d_final!" %src_patterns%
+	call "%batdir%\CopyFilePatterns.bat" "%srcdir%" "!d_final!" %src_patterns%
 	if errorlevel 1 ( 
 		call :Echos [ERROR] Error occurred when copying file to "!d_final!" .
 		exit /b 4 
