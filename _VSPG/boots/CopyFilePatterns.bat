@@ -12,6 +12,11 @@ if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
 	call :EchosV1 See vspg_COPYORCLEAN_DO_CLEAN=1, run in delete mode.
 )
 
+if "%3" == "" (
+	call :Echos [ERROR] Missing parameters.
+	exit /b 4
+)
+
 :CopyFilePatterns
 REM Copy files of various patterns to destination directory.
 REM We need this bcz Windows copy cmd only accepts one wildcard pattern per execution.
@@ -41,7 +46,7 @@ REM against source folder instead of the target folder.
   set DirDst=%~1
   shift
   
-  if not exist "%DirDst%" mkdir "%DirDst%"
+  if not exist "%DirDst%" call :EchoAndExec mkdir "%DirDst%"
   
 :loop_CopyFilePatterns
   set pattern=%~1
@@ -60,9 +65,9 @@ REM against source folder instead of the target folder.
   
 :process_pattern
   REM Prompt the user the currently processing pattern
-  call "%bootsdir%\IsSubStr.bat" hasAsterisk "%pattern%" *
-  call "%bootsdir%\IsSubStr.bat" hasQuesmark "%pattern%" ?
-  call "%bootsdir%\IsSubStr.bat" hasWildcard "%hasAsterisk%%hasQuesmark%" 1
+  call "%batdir%\IsSubStr.bat" hasAsterisk "%pattern%" *
+  call "%batdir%\IsSubStr.bat" hasQuesmark "%pattern%" ?
+  call "%batdir%\IsSubStr.bat" hasWildcard "%hasAsterisk%%hasQuesmark%" 1
   if "%hasWildcard%" == "1" (
     if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
       call :Echos Deleting files matching pattern "%pattern%" ...
@@ -73,21 +78,23 @@ REM against source folder instead of the target folder.
 
   REM If %pattern% has no : in it, prepend %DirSrc% to make a pattern with dir-prefix.
   REM If %pattern% has : in it, we consider it an absolute path, so don't prepend dir-prefix.
-  call "%bootsdir%\IsSubStr.bat" hasColon "%pattern%" :
+  call "%batdir%\IsSubStr.bat" hasColon "%pattern%" :
   if "%hasColon%" == "1" (
-    set dirpfx_pattern=%pattern%
+    set srcpath_pattern=%pattern%
   ) else (
-    set dirpfx_pattern=%DirSrc%\%pattern%
+    set srcpath_pattern=%DirSrc%\%pattern%
   )
 
   set seefile=
-  for %%g in ("%dirpfx_pattern%") do (
+  for %%g in ("%srcpath_pattern%") do (
 
+	REM Example of a srcpath_pattern: 
+	REM 	d:\myproj\bin-v100\x64\Debug\*.exe
 	REM Example of a %%g: 
-	REM 	d:\myproj\output\*.exe
+	REM 	d:\myproj\bin-v100\x64\Debug\foo.exe
 
     set seefile=%%~g
-    call "%bootsdir%\PathSplit.bat" "!seefile!" __thisdir thisfilenam
+    call "%batdir%\PathSplit.bat" "!seefile!" __thisdir thisfilenam
     
     set curdstpath=%DirDst%\!thisfilenam!
 
@@ -103,7 +110,7 @@ REM against source folder instead of the target folder.
     ) else (
       REM ---- call :EchoAndExec copy "%%g" "%DirDst%"
       REM ---- Use following instead:
-      call "%bootsdir%\LoopExecUntilSucc.bat" #5# "%bootsdir%\vspg_copy1file.bat" "!seefile!" "!curdstpath!"
+      call "%batdir%\LoopExecUntilSucc.bat" #5# "%batdir%\vspg_copy1file.bat" "!seefile!" "!curdstpath!"
       REM
       if errorlevel 1 (
         call :Echos [ERROR] Copy file failed after multiple retries!
@@ -114,9 +121,9 @@ REM against source folder instead of the target folder.
   
   if "%seefile%" == "" (
     if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
-      call :Echos No files matching "%dirpfx_pattern%", no file deleted.
+      call :Echos No files matching "%srcpath_pattern%", no file deleted.
     ) else (
-      call :Echos No files matching "%dirpfx_pattern%", no file copied.
+      call :Echos No files matching "%srcpath_pattern%", no file copied.
     )
   ) else (
     set isFileMet=true
