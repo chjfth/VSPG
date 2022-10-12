@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="svnrev.cpp" />
+    <ClCompile Include="svnrev.cpp.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="_VSPG">
+      <UniqueIdentifier>{5eff56b3-b63b-4a05-91eb-0f7e2798f451}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PreBuild-SubWCRev1.bat">
+      <Filter>_VSPG</Filter>
+    </None>
+    <None Include="Team-Prebuild.bat">
+      <Filter>_VSPG</Filter>
+    </None>
+  </ItemGroup>
+</Project>
