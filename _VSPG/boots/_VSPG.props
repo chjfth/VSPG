@@ -2,8 +2,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="$(MSBuildThisFileDirectory)..\VSPG.Team.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPG.Team.props')" />
-  
   <Import Project="$(MSBuildThisFileDirectory)..\VSPG.Personal.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPG.Personal.props')" />
+
+  <Import Project="$(MSBuildProjectDirectory)\VSPG.Team.props" Condition="exists('$(MSBuildProjectDirectory)\VSPG.Team.props')" />
+  <Import Project="$(MSBuildProjectDirectory)\VSPG.Personal.props" Condition="exists('$(MSBuildProjectDirectory)\VSPG.Personal.props')" />
 
   <!-- Define some variables to use later. -->
 
