@@ -1,4 +1,4 @@
-See _VSPG\VSPG.README.txt .
+See [VSPG.README.txt](_VSPG\VSPG.README.txt) .
 
 Since 2022.10, VSPG(version 512 and later) becomes a standalone git-repo hosted here.
 
