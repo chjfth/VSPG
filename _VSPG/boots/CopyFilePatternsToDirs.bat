@@ -22,17 +22,19 @@ REM Copy files of various patterns to multiple destination directories.
 REM This function is a cycled wrapper of CopyFilePatterns.bat, to suppor multiple dirs.
 REM 
 REM Usage:
-REM 	CopyFilePatternsToDirs <SrcDir> <Varname-SrcPattern> <Varname-DstDirs>
+REM 	CopyFilePatternsToDirs <SrcDir> <Varname-SrcPatterns> <Varname-DstRootDirs> [DstSubdir]
 REM 
-REM <SrcDir>             : One source directory.
-REM <Varname-SrcPattern> : The varname that contains source-patterns.
-REM <Varname-DstDirs>    : The varname that contains destination dirs.
+REM <SrcDir>              : One source directory.
+REM <Varname-SrcPatterns> : The varname that contains source-patterns.
+REM <Varname-DstRootDirs> : The varname that contains destination dirs.
+REM [DstSubdir]           : (optional) Extra subdir inside a <DstRootDir>, example: "x64\Debug"
 REM 
 REM See CopyFilePatterns.bat for other memos.
 
 set srcdir=%~1
 set varname_src=%~2
 set varname_dst=%~3
+set subdirpart=%~4
 
 call set src_patterns=%%%varname_src%%%
 call set dst_dirs=%%%varname_dst%%%
@@ -47,9 +49,14 @@ if not defined dst_dirs (
 	exit /b 4
 )
 
+if defined subdirpart (
+	set subdirpart=\%subdirpart%
+)
+
+
 for %%d in (%dst_dirs%) do (
 
-	set d_final=%%~d
+	set d_final=%%~d%subdirpart%
 	if not exist "!d_final!" ( 
 		call :EchoAndExec mkdir "!d_final!"
 		if errorlevel 1 (

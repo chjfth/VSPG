@@ -6,7 +6,7 @@ set batdir=%batdir:~0,-1%
 set _vspgINDENTS=%_vspgINDENTS%.
 call :Echos START from %batdir%
 
-REM Parameter: 1 or 0
+REM The only Parameter: 1 or 0
 REM If 1, do copy action.
 REM If 0, do clean action.
 
@@ -29,11 +29,11 @@ REM   running on that remote machine (remote debugging).
 REM * By copying EXE/DLL from different projects to a single barn, you collect those
 REM   EXE/DLL to help create a complete set of software package.
 REM 
-REM Two variables control the copy operation implemented in this bat.
+REM Three variables control the copy operation implemented in this bat.
 REM 
 REM (1) AGILE_COPY_PATTERNS
 REM
-rem set AGILE_COPY_PATTERNS="%ExeDllDir%\%TargetFilenam%"
+REM set AGILE_COPY_PATTERNS="%ExeDllDir%\%TargetFilenam%"
 REM 
 REM		This sets what file (a concrete filename) or file-pattern (*.exe etc) to copy.
 REM	
@@ -43,7 +43,7 @@ REM
 REM		This can be a list of multiple file/file-patterns separated by spaces.
 REM		It means you can have multiple barns, each barn gets one copy.
 REM	
-REM		NOTE: If a barn path has space char, you must wrap it in double-quotes.
+REM		NOTE: If a pattern/filepath has space char, you must wrap it in double-quotes.
 REM	
 REM	(2) AGILE_BARN_DIRS
 REM 
@@ -53,8 +53,18 @@ REM		You can list multiple barn dirs, separated by spaces.
 REM 
 REM		Also, if a barn dir contains space char, you must wrap that dir-path in double-quotes.
 REM	
-REM Hint: You can set/modify these AGILE_xxx vars directly in this bat file, 
+REM Hint: You can set/modify above AGILE_xxx vars directly in this bat file, 
 REM       or set them from parent environment.
+REM 
+REM (3) BARN_SUBDIR
+REM     This creates extra subdir(s) inside a barn dir.
+REM     Usually, we want to separate Debug/Release outputs, and separate Win32/x64 output,
+REM     so this subdir specification comes to help.
+REM     Hint: You don't need to surrond BARN_SUBDIR's value with double-quotes, bcz
+REM           when we pass it to CopyFilePatternsToDirs.bat, double-quotes is added there.
+REM 
+set BARN_SUBDIR=%PlatformName%\__%BuildConf%
+REM 
 REM =========================================================================
 
 REM Check param1 validity, must be 1 or 0
@@ -84,15 +94,8 @@ if not defined AGILE_COPY_PATTERNS (
 	exit /b 4
 )
 
-REM For the two AGILE_xxx, escape double-quotes for wrapping into a single bat-parameter.
-call :PackDoubleQuotes %AGILE_COPY_PATTERNS%
-set __SourcePatterns__=%_vspg_dqpacked%
-rem
-call :PackDoubleQuotes %AGILE_BARN_DIRS%
-set __DestDirs__=%_vspg_dqpacked%
-set DestSubdir=%PlatformName%\__%BuildConf%
 
-call "%bootsdir%\AgileCopyOrDelete.bat"  "%ExeDllDir%"  "%__SourcePatterns__%"  "%__DestDirs__%"  "%DestSubdir%"
+call "%_vspg_bootsdir%\CopyFilePatternsToDirs.bat" "%ExeDllDir%" AGILE_COPY_PATTERNS AGILE_BARN_DIRS "%BARN_SUBDIR%"
 
 exit /b %ERRORLEVEL%
 
@@ -124,11 +127,3 @@ exit /b 0
   REM Usage example:
   REM call :SetErrorlevel 4
 exit /b %1
-
-:PackDoubleQuotes
-  REM Take whole %* as input, replace each " with "" and return the result string.
-  REM The return value is put in global var _vspg_dqpacked .
-  set allparams=%*
-  set _vspg_dqpacked=%allparams:"=""%
-exit /b 0
-
