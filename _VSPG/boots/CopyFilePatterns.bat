@@ -12,7 +12,7 @@ if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
 	call :EchosV1 See vspg_COPYORCLEAN_DO_CLEAN=1, run in delete mode.
 )
 
-if "%3" == "" (
+if "%~3" == "" (
 	call :Echos [ERROR] Missing parameters.
 	exit /b 4
 )
