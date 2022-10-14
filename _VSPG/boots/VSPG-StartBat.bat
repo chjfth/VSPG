@@ -44,7 +44,8 @@ set SubbatSearchDirsWideToNarrow=^
   "%SolutionDir%"^
   "%ProjectDir_upup%"^
   "%ProjectDir_up%"^
-  "%ProjectDir%"
+  "%ProjectDir%"^
+  "%ProjectDir%\_VSPG"^
 
 REM ======== Loading User Env-vars ======== 
 
@@ -65,6 +66,7 @@ REM resume the search(to get accumulating effect), user bat should manually call
 
 set SubbatSearchDirsNarrowToWide=^
   %vspg_USER_BAT_SEARCH_DIRS%^
+  "%ProjectDir%\_VSPG"^
   "%ProjectDir%"^
   "%SolutionDir%"^
   "%VSPG_StartDir%"
