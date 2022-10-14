@@ -152,20 +152,23 @@
   <ItemGroup>
     <CustomBuild Include="mc-src\0804.mc">
       <FileType>Document</FileType>
-      <Command>echo.</Command>
-      <Outputs>use-mc1.ico</Outputs>
+      <Command>echo DONE &gt; _VSPG\nulldep.txt</Command>
+      <Outputs>_VSPG\nulldep.txt</Outputs>
     </CustomBuild>
     <CustomBuild Include="mc-src\0404.mc">
       <FileType>Document</FileType>
-      <Command>echo.</Command>
-      <Outputs>use-mc1.ico</Outputs>
+      <Command>echo DONE &gt; _VSPG\nulldep.txt</Command>
+      <Outputs>_VSPG\nulldep.txt</Outputs>
     </CustomBuild>
     <CustomBuild Include="mc-src\0409.mc">
       <FileType>Document</FileType>
-      <Command>echo.</Command>
-      <Outputs>use-mc1.ico</Outputs>
+      <Command>echo DONE &gt; _VSPG\nulldep.txt</Command>
+      <Outputs>_VSPG\nulldep.txt</Outputs>
     </CustomBuild>
+    <None Include="_VSPG\nulldep.txt" />
     <None Include="use-mc1.ico" />
+    <None Include="_VSPG\Run-mc.bat" />
+    <None Include="_VSPG\Team-Prebuild.bat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />

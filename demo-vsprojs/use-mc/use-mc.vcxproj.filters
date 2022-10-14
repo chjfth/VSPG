@@ -20,10 +20,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="use-mc1.ico" />
+    <None Include="_VSPG\nulldep.txt">
+      <Filter>_VSPG</Filter>
+    </None>
+    <None Include="_VSPG\Run-mc.bat">
+      <Filter>_VSPG</Filter>
+    </None>
+    <None Include="_VSPG\Team-Prebuild.bat">
+      <Filter>_VSPG</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="mc">
       <UniqueIdentifier>{789f617a-db7b-4df0-af34-70ddc185afba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_VSPG">
+      <UniqueIdentifier>{b3adf268-8f31-4f15-8861-f908af45fca0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
