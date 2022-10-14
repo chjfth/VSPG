@@ -119,6 +119,9 @@
     </ClCompile>
     <Link>
     </Link>
+    <CustomBuild>
+      <Message>Performing Custom Build Tools on: %(Identity)</Message>
+    </CustomBuild>
   </ItemDefinitionGroup>
   <!-- 
   	Compiler Behavior Settings : Release 
@@ -142,14 +145,26 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="use-mc.rc" />
-    <ResourceCompile Include="mc-src\0409.rc" />
     <ResourceCompile Include="mc-src\0804.rc" />
     <ResourceCompile Include="mc-src\0404.rc" />
+    <ResourceCompile Include="mc-src\0409.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mc-src\0409.mc" />
-    <None Include="mc-src\0804.mc" />
-    <None Include="mc-src\0404.mc" />
+    <CustomBuild Include="mc-src\0804.mc">
+      <FileType>Document</FileType>
+      <Command>echo.</Command>
+      <Outputs>use-mc1.ico</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="mc-src\0404.mc">
+      <FileType>Document</FileType>
+      <Command>echo.</Command>
+      <Outputs>use-mc1.ico</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="mc-src\0409.mc">
+      <FileType>Document</FileType>
+      <Command>echo.</Command>
+      <Outputs>use-mc1.ico</Outputs>
+    </CustomBuild>
     <None Include="use-mc1.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +174,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-
   <!-- import VSPG start -->
   <PropertyGroup>
     <VSPG_BootsDir_NoTBS>..\..\_VSPG\boots</VSPG_BootsDir_NoTBS>
@@ -168,5 +182,4 @@
     <Import Project="$(VSPG_BootsDir_NoTBS)\_VSPG.props" />
   </ImportGroup>
   <!-- import VSPG end -->
-
 </Project>

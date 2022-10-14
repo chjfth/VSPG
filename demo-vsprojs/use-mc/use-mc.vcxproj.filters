@@ -8,31 +8,33 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="use-mc.rc" />
-    <ResourceCompile Include="0404.rc">
+    <ResourceCompile Include="mc-src\0404.rc">
       <Filter>mc</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="0409.rc">
+    <ResourceCompile Include="mc-src\0409.rc">
       <Filter>mc</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="0804.rc">
+    <ResourceCompile Include="mc-src\0804.rc">
       <Filter>mc</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="use-mc1.ico" />
-    <None Include="mc-src\0404.mc">
-      <Filter>mc</Filter>
-    </None>
-    <None Include="mc-src\0409.mc">
-      <Filter>mc</Filter>
-    </None>
-    <None Include="mc-src\0804.mc">
-      <Filter>mc</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="mc">
       <UniqueIdentifier>{789f617a-db7b-4df0-af34-70ddc185afba}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="mc-src\0804.mc">
+      <Filter>mc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mc-src\0404.mc">
+      <Filter>mc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mc-src\0409.mc">
+      <Filter>mc</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
