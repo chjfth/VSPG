@@ -75,7 +75,7 @@ Some comments here:
 
 If we stop here, there will be a problem: Once you update 0804.mc's content, you hope that Visual C++ F7 hotkey will relaunch build action, but it does not(just say everything up-to-date), that's because we have not setup 0804.mc's dependency on any other file managed by vcxproj.
 
-So, in vcxproj, we have 0804.mc to depend on an imaginary file nulldep.txt, and the nulldep.txt is added to vcxproj as a source file. The following figure shows this:
+So, in vcxproj, we have 0804.mc depend on an imaginary file nulldep.txt, and the nulldep.txt is added to vcxproj as a source file. The following figure shows this:
 
 ![dulldep.txt](doc/nulldep.png)
 
@@ -91,9 +91,9 @@ Actual MSBuild statements in vcxproj are like this:
   <ItemGroup>
 ```
 
-Wait. Here is a question, on previous image, since we have taken the effort to assign a "Custom Build Tool - Command Line" `echo DONE > _VSPG\nulldep.txt` for `0804.mc`, the why not call `mc.exe` there?
+Wait. Here is a question, on previous image, since we have taken the effort to assign a "Custom Build Tool - Command Line" `echo DONE > _VSPG\nulldep.txt` for `0804.mc`, then why not call `mc.exe` there(so VSPG is not required)?
 
-Well, this is a good question. It is totally feasible to do that(the "standard way" with VSIDE), achieving the same effect of calling mc.exe. VSPG author just wants to present you an alternative way to run our custom commands.
+Well, this is a good question. It is totally feasible to do that(the "standard way" with VSIDE), achieving the same effect of calling mc.exe. By using VSPG, I (the VSPG author) just want to present you an alternative way to run our custom commands.
 
 Imagine, you have 3 "types" of non-standard source files which require 3 custom tools, with "standard way", those custom things will find their way into .vcxproj, which makes .vcxproj something cluttered and not so easily maintainable. But with VSPG, you move all custom things out of .vcxproj and group them in .bat files which could bring more flexibility in the long run.
 
