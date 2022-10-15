@@ -66,11 +66,14 @@ For example:
 set BARN_SUBDIR=%PlatformName%\__%BuildConf%
 ```
 
-We will simultaneously see:
-- D:\barn\Win32\__Debug\simprint.exe
-- D:\barn\Win32\__Release\simprint.exe
-- D:\barn\x64\__Debug\simprint.exe
-- D:\barn\x64\__Release\simprint.exe
+We will simultaneously see these files:
+
+```
+D:\barn\Win32\__Debug\simprint.exe
+D:\barn\Win32\__Release\simprint.exe
+D:\barn\x64\__Debug\simprint.exe
+D:\barn\x64\__Release\simprint.exe
+```
 
 Of course, If don't like the subdir structure shown above, feel free to adjust `BARN_SUBDIR`'s value in your `VSPU-CopyOrClean.bat`, or, in your Env-var.
 

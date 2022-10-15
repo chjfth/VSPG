@@ -17,8 +17,12 @@ The above rules apply to other `.sample` files in this directory.
 
 ## Where to place these sample files(after deleting `.sample` extension)
 
+(pending...)
 
+## Sample list
 
-To make use of these .bat files, copy them to parent directory, deleting the .sample suffix in file name.
-
-You may need to do some modification to the .bat content to suit your need.
+| Sample file | Used for ... |
+| ----------- | ------------ |
+| [VSPU-CopyOrClean.bat.sample](VSPU-CopyOrClean.bat.md) | VSPU-CopyOrClean.bat |
+| Team-Postbuild.bat.sample | Personal-Prebuild.bat <br/>Personal-Postbuild.bat <br/>Team-Prebuild.bat <br/>Team-Postbuild.bat <br/> |
+| VSPU-StartEnv.bat.sample | VSPU-StartEnv.bat |
