@@ -14,7 +14,7 @@ call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 Personal-Clean.bat "" %SubbatS
 if errorlevel 1 exit /b 4
 
 set vspg_COPYORCLEAN_DO_CLEAN=1
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 VSPU-CopyOrClean.bat "no-use-param" %SubbatSearchDirsNarrowToWide%
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 VSPU-CopyOrClean.bat 0 %SubbatSearchDirsNarrowToWide%
 
 if errorlevel 1 exit /b 4
 
