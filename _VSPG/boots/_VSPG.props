@@ -54,7 +54,7 @@
     	/>
   </Target>
 
-  <!-- A "Clean" Target that will invode VSPU-CopyOrClean.bat to delete "output" files.  -->
+  <!-- A "Clean" Target that will invoke VSPU-CopyOrClean.bat to delete "output" files.  -->
 
   <Target Name="VSPG_Clean" AfterTargets="Clean">
     <Exec Command='$(ExportEnvvarsForVSPG) call "$(VSPG_BootsDir_NoTBS)\VSPG-Boots.bat" VSPG-CleanProject.bat'

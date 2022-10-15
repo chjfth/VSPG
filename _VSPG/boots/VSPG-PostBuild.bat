@@ -39,7 +39,8 @@ REM ==== Call VSPU-CopyOrClean.bat if exist. ====
 REM If you need this bat, just copy it from ..\samples\VSPU-CopyOrClean.bat.sample,
 REM and tune some variables there to meet your need..
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 VSPU-CopyOrClean.bat 1 %SubbatSearchDirsNarrowToWide%
+set vspg_COPYORCLEAN_DO_CLEAN=
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 VSPU-CopyOrClean.bat "no-use-param" %SubbatSearchDirsNarrowToWide%
 if errorlevel 1 exit /b 4
 
 
