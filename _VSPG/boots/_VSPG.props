@@ -66,6 +66,8 @@
   <!-- ====================================================================== -->
   <!-- A MSBuild Target to diagnose variables.                                -->
   <!--   msbuild xxx.vcxproj /p:showvars="TargetName;TargetPath"              -->
+  <!-- Or,                                                                    -->
+  <!--   assign <showvars> in VSPG.Teams.props or VSPG.Personal.props .       -->
   <!-- ====================================================================== -->
 
   <ItemGroup>
