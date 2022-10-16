@@ -7,10 +7,8 @@ set _vspgINDENTS=%_vspgINDENTS%.
 call :Echos START from %batdir%
 
 REM == debugging purpose ==
-REM call :EchoVar _BuildConf_
 REM call :EchoVar BuildConf
 REM call :EchoVar PlatformName
-REM call :EchoVar _ExeDllDir_
 REM call :EchoVar ExeDllDir
 REM call :EchoVar TargetName
 
