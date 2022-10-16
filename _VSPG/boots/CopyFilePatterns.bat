@@ -25,15 +25,20 @@ REM Param2: One destination folder.
 REM Params remain: Each one is a pattern, like: *.exe *.dll .
 REM Memo for pattern: 
 REM * If a pattern contains no backslash, then these files are considered from source folder.
-REM * This function currently does not resurce into subdirectory for source files.
+REM * For a wildcard pattern, this function currently does not recurse into subdirectory.
 REM * If a pattern contains a colon, for example,
 REM      d:\test\foo.exe 
 REM      d:\test\*.dll 
-REM then it is considered absolute path, and Param1 is not used.
+REM   then it is considered absolute path, and Param1 is ignored for this pattern.
+REM * For a non-wildcard pattern, a new destination filename can be assigned, using '#'.
+REM   Example:
+REM     foo.exe#foo-x64.exe
+REM   In destination dir, ther will be foo-x64.exe .
 REM 
 REM [Env-var input]
-REM If env-var vspg_COPYORCLEAN_DO_CLEAN=1, target file is actually deleted.
-REM This feature can be used in VSPU-CleanProject.bat .
+REM If env-var vspg_COPYORCLEAN_DO_CLEAN=1, destination file is actually deleted,
+REM -- but source-file is not deleted.
+REM This feature is used by VSPU-CopyOrClean.bat .
 REM If a file pattern contains wildcard(* or ?), then the wildcard is matched
 REM against source folder instead of the target folder.
 
@@ -76,8 +81,8 @@ REM against source folder instead of the target folder.
     )
   )
 
-  REM If %pattern% has no : in it, prepend %DirSrc% to make a pattern with dir-prefix.
-  REM If %pattern% has : in it, we consider it an absolute path, so don't prepend dir-prefix.
+  REM If %pattern% has no ':' in it, prepend %DirSrc% to make a pattern with dir-prefix.
+  REM If %pattern% has ':' in it, we consider it an absolute path, so don't prepend dir-prefix.
   call "%batdir%\IsSubStr.bat" hasColon "%pattern%" :
   if "%hasColon%" == "1" (
     set srcpath_pattern=%pattern%
@@ -85,18 +90,32 @@ REM against source folder instead of the target folder.
     set srcpath_pattern=%DirSrc%\%pattern%
   )
 
+  REM Example of a srcpath_pattern: 
+  REM 	d:\myproj\bin-v100\x64\Debug\*.exe
+  REM 	d:\myproj\bin-v100\x64\Debug\foo.exe
+  REM 	d:\myproj\bin-v100\x64\Debug\foo.exe#foo-x64.exe
+
+  REM Check if srcpath_pattern contains '#', if so, split it.
+  set newfilenam=
+  call :SplitBySharp "%srcpath_pattern%" oldfilepath newfilenam
+  if defined newfilenam (
+    REM Has '#', tweak srcpath_pattern to be a normal filepath
+    set srcpath_pattern=%oldfilepath%
+  )
+
+  REM Expand the wildcard patten into individual filepaths, using CMD `for` feature.
   set seefile=
   for %%g in ("%srcpath_pattern%") do (
 
-	REM Example of a srcpath_pattern: 
-	REM 	d:\myproj\bin-v100\x64\Debug\*.exe
-	REM Example of a %%g: 
-	REM 	d:\myproj\bin-v100\x64\Debug\foo.exe
+    REM Now %g is a concrete filepath.
 
     set seefile=%%~g
-    call "%batdir%\PathSplit.bat" "!seefile!" __thisdir thisfilenam
     
-    set curdstpath=%DirDst%\!thisfilenam!
+    if not defined newfilenam (
+      call "%batdir%\PathSplit.bat" "!seefile!" __nouse_dir newfilenam
+    )
+    
+    set curdstpath=%DirDst%\!newfilenam!
 
     if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
       if exist "!curdstpath!" (
@@ -165,4 +184,22 @@ exit /b %ERRORLEVEL%
 :EchoVar
   setlocal & set Varname=%~1
   call echo %_vspgINDENTS%[%batfilenam%]%~2 %Varname% = %%%Varname%%%
+exit /b 0
+
+:SplitBySharp
+  REM Split a string into two substrings, using # as separator.
+  REM Param1: Input string to split.
+  REM Param2: [out] varname to store first substring.
+  REM Param3: [out] varname to store second substring.
+  setlocal
+  set inputstr=%~1
+  for /F "delims=# tokens=1,*" %%a in ("%inputstr%") do (
+    set sub1=%%a
+    set sub2=%%b
+  )
+  
+  endlocal & (
+    set "%~2=%sub1%"
+    set "%~3=%sub2%"
+  )
 exit /b 0
