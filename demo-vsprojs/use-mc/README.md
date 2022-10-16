@@ -4,7 +4,7 @@ NOTE: This program should be built by VS2019. Using VS2010 will encounter error,
 
 This demo program use-mc, defines its source text(a poem text) not in C++ source file, but in Visual C++ .mc files.
 
-To use text from .mc files, during project compiling, we need to call mc.exe to convert foo.mc into foo.rc.
+To use text from .mc files, during project compiling, we need to call mc.exe to convert `foo.mc` into `foo.rc`.
 
 Calling of mc.exe is not supported by vcxproj directly, so we (VSIDE user) need some "custom-build" action. To make this custom-build operation concrete, extensible and easily maintainable, we use VSPG to carry out this custom-build.
 
