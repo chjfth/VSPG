@@ -34,5 +34,5 @@ So the resulting int `svnrev.cpp` is something like:
 int g_svnrev=8;
 ```
 
-The <SrcVersionFile> and <DstVersionFile> passed to `SubWCRev.exe` is not hardcoded in `PreBuild-SubWCRev1.bat`, instead, they are recorded in `SubWCRev.csv` to ease adding/modifying new file pairs, one pair per line, so `PreBuild-SubWCRev1.bat` becomes generic.
+The \<SrcVersionFile\> and \<DstVersionFile\> passed to `SubWCRev.exe` is not hardcoded in `PreBuild-SubWCRev1.bat`, instead, they are recorded in `SubWCRev.csv` to ease adding/modifying new file pairs, one pair per line, so `PreBuild-SubWCRev1.bat` becomes generic.
 
