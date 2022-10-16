@@ -13,7 +13,6 @@ call :Echos START from "%batdir%"
 REM == debugging purpose ==
 REM call :EchoVar SolutionDir
 REM call :EchoVar ProjectDir
-REM call :EchoVar _BuildConf_
 REM call :EchoVar BuildConf
 REM call :EchoVar IntrmDir
 REM call :EchoVar TargetDir

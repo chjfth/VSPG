@@ -24,5 +24,5 @@ The above rules apply to other `.sample` files in this directory.
 | Sample file | Used for ... |
 | ----------- | ------------ |
 | [VSPU-CopyOrClean.bat.sample](VSPU-CopyOrClean.bat.md) | VSPU-CopyOrClean.bat |
-| Team-Postbuild.bat.sample | Personal-Prebuild.bat <br/>Personal-Postbuild.bat <br/>Team-Prebuild.bat <br/>Team-Postbuild.bat <br/> |
+| [Team-Postbuild.bat.sample](Team-Postbuild.bat.md) | Team-Prebuild.bat <br/>Team-Postbuild.bat <br/>Personal-Prebuild.bat <br/>Personal-Postbuild.bat <br/> |
 | VSPU-StartEnv.bat.sample | VSPU-StartEnv.bat |
