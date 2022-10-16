@@ -123,6 +123,10 @@ is listed as a property-sheet, side-by-side with "Microsoft.Cpp.Win32.user",
 OK now, with above minor manual tweak of .vcxproj, we have applied VSPG project-wide.
 By saying "project-wide", I mean, x86/x64, Debug/Release build variants all receive VSPG's benefits.
 
+### First actual example
+
+See here: [simprint](../demo-vsprojs/simprint/README.md)
+
 ## Customize VSPG further
 
 VSPG's actual behavior is customized by adding more triggering files.

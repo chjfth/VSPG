@@ -150,6 +150,11 @@
     <ClCompile Include="simprint.cpp" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="VSPU-CopyOrClean.bat" />
+    <None Include="simprint.ini" />
+  </ItemGroup>
+
   <!-- MSBuild system stock Cpp.targets -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
