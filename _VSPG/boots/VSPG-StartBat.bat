@@ -18,11 +18,6 @@ set SubworkBatfile=%~1
 set SubworkBatpath=%bootsdir%\%SubworkBatfile%
 
 
-call "%bootsdir%\VSPG-version.bat" vspgver
-
-call :EchosV1 [VSPG version %vspgver%] started as: "%bootsdir%\%batfilenam%"
-
-
 if defined vspg_DO_SHOW_VERBOSE (
   call :EchoVar SubworkBatpath
 )

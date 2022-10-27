@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <Import Project="$(MSBuildThisFileDirectory)_vspg_ver.props" />
+
   <Import Project="$(MSBuildThisFileDirectory)..\VSPG.Team.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPG.Team.props')" />
   <Import Project="$(MSBuildThisFileDirectory)..\VSPG.Personal.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPG.Personal.props')" />
 
@@ -12,6 +14,7 @@
   <!-- Note: Only after Microsoft.Cpp.targets is imported, $(TargetFileName) and $(TargetName) is filled with values. -->
   <PropertyGroup>
     <ExportEnvvarsForVSPG>
+      set "vspg_ver=$(vspg_ver)"
       set "PlatformShortName=$(PlatformShortName)"
       set "PlatformToolsetVersion=$(PlatformToolsetVersion)"
       set "PlatformToolset=$(PlatformToolset)"
@@ -69,6 +72,10 @@
   <!-- Or,                                                                    -->
   <!--   assign <showvars> in VSPG.Teams.props or VSPG.Personal.props .       -->
   <!-- ====================================================================== -->
+
+  <Target Name="VSPG_ShowLoaded" BeforeTargets="PrepareForBuild">
+    <Message Text="VSPG version $(vspg_ver) loaded from: $([System.IO.Path]::GetFullPath($(VSPG_BootsDir_NoTBS)))" Importance="high" />
+  </Target>
 
   <ItemGroup>
     <ShowVars Include="$(showvars)" />
