@@ -79,6 +79,8 @@ REM against source folder instead of the target folder.
     ) else (
       call :Echos Copying files matching pattern "%pattern%" ...
     )
+    call :Echos . from: !DirSrc!
+    call :Echos .   to: !DirDst!
   )
 
   REM If %pattern% has no ':' in it, prepend %DirSrc% to make a pattern with dir-prefix.
@@ -103,7 +105,7 @@ REM against source folder instead of the target folder.
     set srcpath_pattern=%oldfilepath%
   )
 
-  REM Expand the wildcard patten into individual filepaths, using CMD `for` feature.
+  REM Expand the wildcard pattern into individual filepaths, using CMD `for` feature.
   set seefile=
   for %%g in ("%srcpath_pattern%") do (
 
@@ -111,9 +113,7 @@ REM against source folder instead of the target folder.
 
     set seefile=%%~g
     
-    if not defined newfilenam (
-      call "%batdir%\PathSplit.bat" "!seefile!" __nouse_dir newfilenam
-    )
+    call "%batdir%\PathSplit.bat" "!seefile!" __nouse_dir newfilenam
     
     set curdstpath=%DirDst%\!newfilenam!
 

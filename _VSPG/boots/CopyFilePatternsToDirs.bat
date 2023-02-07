@@ -19,7 +19,7 @@ if "%3" == "" (
 
 :CopyFilePatternsToDirs
 REM Copy files of various patterns to multiple destination directories.
-REM This function is a cycled wrapper of CopyFilePatterns.bat, to suppor multiple dirs.
+REM This function is a cycled wrapper of CopyFilePatterns.bat, to support multiple dirs.
 REM 
 REM Usage:
 REM 	CopyFilePatternsToDirs <SrcDir> <Varname-SrcPatterns> <Varname-DstRootDirs> [DstSubdir]
