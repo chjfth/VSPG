@@ -18,27 +18,31 @@ if "%~3" == "" (
 )
 
 :CopyFilePatterns
-REM Copy files of various patterns to destination directory.
-REM We need this bcz Windows copy cmd only accepts one wildcard pattern per execution.
+REM Copy files of various patterns to destination directory(folder).
+REM We need this bcz Windows `copy` cmd only accepts one wildcard pattern per execution.
 REM Param1: One source folder.
 REM Param2: One destination folder.
-REM Params remain: Each one is a pattern, like: *.exe *.dll .
+REM Params remaining: Each one is a pattern, like: *.exe, *.dll, foo.exe .
 REM Memo for pattern: 
-REM * If a pattern contains no backslash, then these files are considered from source folder.
-REM * For a wildcard pattern, this function currently does not recurse into subdirectory.
+REM [Dir-prefix in pattern]
+REM * If a pattern contains no backslash, then these file(s) are considered from source folder.
 REM * If a pattern contains a colon, for example,
 REM      d:\test\foo.exe 
 REM      d:\test\*.dll 
 REM   then it is considered absolute path, and Param1 is ignored for this pattern.
+REM [Wildcard pattern]
+REM * For a wildcard pattern, this function currently does not recurse into subdirectory.
+REM [Copy and rename]
 REM * For a non-wildcard pattern, a new destination filename can be assigned, using '#'.
 REM   Example:
-REM     foo.exe#foo-x64.exe
-REM   In destination dir, ther will be foo-x64.exe .
+REM      d:\test\foo.exe#foo-x64.exe
+REM   In destination dir, there will be foo-x64.exe .
 REM 
 REM [Env-var input]
 REM If env-var vspg_COPYORCLEAN_DO_CLEAN=1, destination file is actually deleted,
 REM -- but source-file is not deleted.
 REM This feature is used by VSPU-CopyOrClean.bat .
+REM [When doing delete]
 REM If a file pattern contains wildcard(* or ?), then the wildcard is matched
 REM against source folder instead of the target folder.
 
