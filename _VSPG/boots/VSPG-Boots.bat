@@ -7,7 +7,7 @@ REM
 REM Operation hint: Create a soft link boots-dev pointing to VSPG original source.
 REM
 REM 	cd D:\some\big work\_VSPG
-REM 	if exists ".\boots\VSPG-Boots.bat" (echo Condition OK.)
+REM 	if exist ".\boots\VSPG-Boots.bat" (echo Condition OK.)
 REM 	mklink /j boots-dev "D:\gitw\VSPG\_VSPG\boots"
 REM 	
 REM Now, "D:\some\big work\_VSPG\boots\VSPG-Boots.bat" will next-step call content in
