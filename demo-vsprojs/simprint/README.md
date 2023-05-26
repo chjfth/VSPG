@@ -26,7 +26,7 @@ D:\barn output\Win32\__Debug
 
 ## Explanation of details
 
-### A manual tweak is need vcxproj 
+### A manual tweak is needed in .cvcxproj 
 
 To bootstrap VSPG from a specific vcxproj, an `<Import>` statement need to exist at end of the .vcxproj file. For a vcxproj file created by Visual Studio project wizard, we need to add it manually.
 
@@ -50,7 +50,7 @@ In `VSPU-CopyOrClean.bat`, we set three variables.
 
 These variables(name or value) are passed to `CopyFilePatternsToDirs.bat` to carry out actual copy operation.
 
-### Then how does our `VSPU-CopyOrClean.bat` gets invoked during the build?
+### Then how does our `VSPU-CopyOrClean.bat` get invoked during the build?
 
 That's because we have vcxproj import VSPG framework file `_VSPG.props`.
 
