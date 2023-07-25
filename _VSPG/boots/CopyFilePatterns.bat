@@ -103,10 +103,12 @@ REM against source folder instead of the target folder.
 
   REM Check if srcpath_pattern contains '#', if so, split it.
   set newfilenam=
+  set is_override_filename=
   call :SplitBySharp "%srcpath_pattern%" oldfilepath newfilenam
   if defined newfilenam (
     REM Has '#', tweak srcpath_pattern to be a normal filepath
     set srcpath_pattern=%oldfilepath%
+    set is_override_filename=1
   )
 
   REM Expand the wildcard pattern into individual filepaths, using CMD `for` feature.
@@ -116,8 +118,11 @@ REM against source folder instead of the target folder.
     REM Now %g is a concrete filepath.
 
     set seefile=%%~g
-    
-    call "%batdir%\PathSplit.bat" "!seefile!" __nouse_dir newfilenam
+
+    if not defined is_override_filename (
+      rem Each wildcard expansion may get a new newfilenam.
+      call "%batdir%\PathSplit.bat" "!seefile!" __nouse_dir newfilenam
+    )
     
     set curdstpath=%DirDst%\!newfilenam!
 
@@ -131,7 +136,7 @@ REM against source folder instead of the target folder.
         )
       )
     ) else (
-      REM ---- call :EchoAndExec copy "%%g" "%DirDst%"
+      REM ---- call :EchoAndExec will copy "!seefile!" to "!curdstpath!"
       REM ---- Use following instead:
       call "%batdir%\LoopExecUntilSucc.bat" #5# "%batdir%\vspg_copy1file.bat" "!seefile!" "!curdstpath!"
       REM
