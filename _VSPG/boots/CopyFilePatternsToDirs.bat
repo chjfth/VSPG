@@ -57,6 +57,17 @@ if defined subdirpart (
 for %%d in (%dst_dirs%) do (
 
 	set d_final=%%~d%subdirpart%
+	
+	REM We show the target folder immediately.
+	REM Benefit: In case the target folder is a Samba network share and the network connection
+	REM is lost, user can immediately see the target folder involved. If not showing this,
+	REM user would not get the hint of "freeze" until the 'mkdir' times out.
+	if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
+		call :Echos Cleaning folder: !d_final! ...
+	) else (
+		call :Echos Copying to folder: !d_final! ...
+	)
+
 	if not exist "!d_final!" ( 
 		call :EchoAndExec mkdir "!d_final!"
 		if errorlevel 1 (
