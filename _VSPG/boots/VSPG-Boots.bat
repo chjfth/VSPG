@@ -1,10 +1,12 @@
 @echo off
 setlocal EnableDelayedExpansion
 REM This bat file boots actual VSPG bat files. It should be kept minimalist. 
-REM This file exists to ease VSPG developer to temporarily switch local [boots] dir to [boots-dev].
-REM so that a new VSPG version can be developed in side-by-side with the actual project using VSPG.
 REM
-REM Operation hint: Create a soft link boots-dev pointing to VSPG original source.
+REM [2023.03]
+REM This file exists to ease VSPG developer to temporarily switch local [boots] dir to [boots-dev].
+REM so that a new VSPG version can be developed side-by-side with the actual project using VSPG.
+REM
+REM Operation hint: Create a soft link 'boots-dev' pointing to VSPG original source.
 REM
 REM 	cd D:\some\big work\_VSPG
 REM 	if exist ".\boots\VSPG-Boots.bat" (echo Condition OK.)
@@ -15,6 +17,9 @@ REM      "D:\some\big work\_VSPG\boots-dev\VSPG-StartBat.bat"
 REM instead of
 REM	     "D:\some\big work\_VSPG\boots\VSPG-StartBat.bat"
 REM .
+REM [2023.09]
+REM If you use Git's powerful & intelligent submodule feature to manage VSPG in your main-project, 
+REM then the 'boots-dev' method developing modal is mostly redundant.
 
 REM set batfilenam to .bat filename(no directory prefix)
 set batfilenam=%~n0%~x0
