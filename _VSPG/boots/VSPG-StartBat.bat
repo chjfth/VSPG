@@ -10,8 +10,7 @@ set batfilenam=%~n0%~x0
 set bootsdir=%~dp0
 set bootsdir=%bootsdir:~0,-1%
 REM Use PathSplit to get parent directory of bootsdir.
-call "%bootsdir%\GetParentDir.bat" userbatdir "%bootsdir%"
-set VSPG_StartDir=%userbatdir%
+call "%bootsdir%\GetParentDir.bat" VSPG_StartDir "%bootsdir%"
 set _vspgINDENTS=%_vspgINDENTS%.
 REM
 set SubworkBatfile=%~1
@@ -34,9 +33,8 @@ REM ==== Prepare directory search list for VSPU-StartEnv.bat.
 call :GetParentDir ProjectDir_up "%ProjectDir%"
 call :GetParentDir ProjectDir_upup "%ProjectDir_up%"
 
-set SubbatSearchDirsWideToNarrow=^
+set StartEnvSearchDirs=^
   "%VSPG_StartDir%"^
-  "%SolutionDir%"^
   "%ProjectDir_upup%"^
   "%ProjectDir_up%"^
   "%ProjectDir%"^
@@ -50,7 +48,7 @@ REM from inner env explicitly.
 REM In one word, the search order is from wide to narrow.
 REM Gist of wide-to-narrow is Greedy: All directories in the list is search and all matched files are called.
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-StartEnv.bat "" %SubbatSearchDirsWideToNarrow% 
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-StartEnv.bat "" %StartEnvSearchDirs% 
 if errorlevel 1 exit /b 4
 
 REM ==== Prepare directory search list for other .bat-s.
@@ -69,9 +67,9 @@ set SubbatSearchDirsNarrowToWide=^
 
 
 REM ======== call VSPG-Prebuild.bat or VSPG-Postbuild.bat ======== 
-REM ====== which one to call is determined by SubworkBatfile =======
+REM ===== which one to call is determined by SubworkBatfile ======
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 "%SubworkBatfile%" "" "%bootsdir%"
+call "%bootsdir%\%SubworkBatfile%"
 if errorlevel 1 exit /b 4
 
 

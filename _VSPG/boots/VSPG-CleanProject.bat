@@ -8,15 +8,13 @@ set _vspgINDENTS=%_vspgINDENTS%.
 
 set vspg_COPYORCLEAN_DO_CLEAN=1
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 Team-Clean.bat "" %SubbatSearchDirsNarrowToWide%
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-CleanProject.bat "" %SubbatSearchDirsNarrowToWide%
 if errorlevel 1 exit /b 4
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 Personal-Clean.bat "" %SubbatSearchDirsNarrowToWide%
+
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-CopyOrClean.bat "" %SubbatSearchDirsNarrowToWide%
 if errorlevel 1 exit /b 4
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 VSPU-CopyOrClean.bat 0 %SubbatSearchDirsNarrowToWide%
-
-if errorlevel 1 exit /b 4
 
 exit /b 0
 

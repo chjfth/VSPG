@@ -12,8 +12,18 @@ if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
 	call :EchosV1 See vspg_COPYORCLEAN_DO_CLEAN=1, run in delete mode.
 )
 
+if "%~1" == "" (
+	call :Echos [ERROR] Missing 1st parameter, a source folder.
+	exit /b 4
+)
+
+if "%~2" == "" (
+	call :Echos [ERROR] Missing 2nd parameter, a destination folder.
+	exit /b 4
+)
+
 if "%~3" == "" (
-	call :Echos [ERROR] Missing parameters.
+	call :Echos [ERROR] Missing 3rd parameter. You must pass at least one file-pattern, like a filename, or "*.exe" "*.dll", etc .
 	exit /b 4
 )
 

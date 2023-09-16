@@ -20,12 +20,8 @@ if defined vspg_DO_SHOW_VERBOSE (
 )
 
 
-REM ==== Call Team-Prebuild.bat if exist. ====
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 Team-PreBuild.bat "" %SubbatSearchDirsNarrowToWide%
-if errorlevel 1 exit /b 4
-
-REM ==== Call Personal-Prebuild.bat if exist. ====
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy0 Personal-PreBuild.bat "" %SubbatSearchDirsNarrowToWide%
+REM ==== Search for VSPU-Prebuild.bat-s and call them. ====
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-PreBuild.bat "" %SubbatSearchDirsNarrowToWide%
 if errorlevel 1 exit /b 4
 
 
