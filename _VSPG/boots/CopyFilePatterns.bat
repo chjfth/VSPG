@@ -67,7 +67,7 @@ REM against source folder instead of the target folder.
   
   if not exist "%DirDst%" call :EchoAndExec mkdir "%DirDst%"
   
-:loop_CopyFilePatterns
+:loop_CopyOneFilePattern
   set pattern=%~1
   set AllPatterns=%AllPatterns% %pattern%
   
@@ -82,7 +82,6 @@ REM against source folder instead of the target folder.
     exit /b 0
   )
   
-:process_pattern
   REM Prompt the user the currently processing pattern
   call "%batdir%\IsSubStr.bat" hasAsterisk "%pattern%" *
   call "%batdir%\IsSubStr.bat" hasQuesmark "%pattern%" ?
@@ -90,11 +89,13 @@ REM against source folder instead of the target folder.
   if "%hasWildcard%" == "1" (
     if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
       call :Echos Deleting files matching pattern "%pattern%" ...
+      call :Echos . ref-dir: !DirSrc!
+      call :Echos . del-dir: !DirDst!
     ) else (
       call :Echos Copying files matching pattern "%pattern%" ...
+      call :Echos . from: !DirSrc!
+      call :Echos .   to: !DirDst!
     )
-    call :Echos . from: !DirSrc!
-    call :Echos .   to: !DirDst!
   )
 
   REM If %pattern% has no ':' in it, prepend %DirSrc% to make a pattern with dir-prefix.
@@ -168,7 +169,7 @@ REM against source folder instead of the target folder.
   )
   
   shift
-  goto :loop_CopyFilePatterns
+  goto :loop_CopyOneFilePattern
 
 REM -- End of :CopyFilePatterns
 

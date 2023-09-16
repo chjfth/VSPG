@@ -61,9 +61,15 @@ set SubbatSearchDirsNarrowToWide=^
   %vspg_USER_BAT_SEARCH_DIRS%^
   "%ProjectDir%\_VSPG"^
   "%ProjectDir%"^
-  "%SolutionDir%"^
   "%VSPG_StartDir%"
 
+rem Remove *duplicate items* in SubbatSearchDirsNarrowToWide, so that %vspg_USER_BAT_SEARCH_DIRS%
+rem has the ability to *completely* override the default search folders order.
+call :RemoveDuplicateInVarname SubbatSearchDirsNarrowToWide
+
+
+rem Copy SubbatSearchDirsNarrowToWide into SubbatSearchDirsWideToNarrow, but in reverse order:
+call :ReverseParams SubbatSearchDirsWideToNarrow %SubbatSearchDirsNarrowToWide%
 
 
 REM ======== call VSPG-Prebuild.bat or VSPG-Postbuild.bat ======== 
@@ -132,3 +138,148 @@ exit /b %ERRORLEVEL%
   for %%g in ("%~2") do set parentdir=%%~dpg
   endlocal & ( set "%~1=%parentdir:~0,-1%" )
 exit /b 0
+
+
+:IsParamExisted
+  REM Check whether a "needle word" exists in the list of parameters.
+  REM (using case insensitive string compare)
+  REM Usage:
+  REM   call :IsParamExisted "needle word" param1 param2 "param 3" ...
+  REM 
+  REM Example:
+  REM 
+  REM   call :IsParamExisted  "foo word" param2 "foo word" param3
+  REM --the result is ERRORLEVEL 1, which means "foo word" exists in the params.
+  REM 
+  REM For 
+  REM   call :IsParamExisted  "foo word" param2 foo word param3
+  REM --the result is ERRORLEVEL 0, which means "foo word" NOT existed in the params.
+  REM 
+  setlocal
+  set needle=%~1
+:_IsParamExisted_check1param
+  shift
+  if "%~1" == "" exit /b 0
+  if /i "%~1" == "%needle%" exit /b 1
+  goto :_IsParamExisted_check1param
+
+
+:RemoveDuplicateParams
+  REM Usage: 
+  REM   call :RemoveDuplicateParams OutVar param1 param2 "param 3" ...
+  REM
+  REM Example:
+  REM 
+  REM   call :RemoveDuplicateParams MyVar abc 123 Abc "One word" "123"
+  REM
+  REM Output:
+  REM   MyVar= "abc" "123" "One word"
+  REM 
+  REM Yes, it has side-effects, the OutVar's content will have each param surrounded 
+  REM by double-quotes. The good news is, we can still use 
+  REM   for %%i in (%MyVar%) do (
+  REM      echo param=[%%~i]
+  REM   )
+  REM to split and process the params one-by-one.
+  REM
+  REM Limitation: Caller must not place a empty param ("") in the list,
+  REM because the empty param will mark the end of the whole param list.
+  REM
+  setlocal
+  set outvarName=%~1
+  set outputValue=
+:_RemoveDuplicateParams_check1param
+  shift
+  if "%~1" == "" goto :_RemoveDuplicateParams_end
+  
+  set param=%~1
+  call :IsParamExisted "%param%" %outputValue%
+  if not errorlevel 1 ( 
+    REM Not existed yet, so append the new param to outputValue.
+    set outputValue=%outputValue% "%param%"
+  )
+  goto :_RemoveDuplicateParams_check1param
+
+:_RemoveDuplicateParams_end
+  endlocal & (
+    set "%outvarName%=%outputValue%"
+  )
+exit /b 0
+
+
+:RemoveDuplicateInVarname
+  REM Example:
+  REM 
+  REM   call :RemoveDuplicateInVarname MyVar
+  REM 
+  REM Check for contents in MyVar, as if MyVar's content is a series of params that would
+  REM be passed to some new command. If some param has appeared before in the param list,
+  REM remove it from the list, so that MyVar contains no duplicate items. 
+  REM On return, MyVar's value is updated.
+  REM 
+  REM This function internally calls :RemoveDuplicateParams to do the core work.
+  REM 
+  setlocal
+  set UserVarname=%~1
+  set UserVarval=!%UserVarname%!
+  call :RemoveDuplicateParams OutputVal %UserVarval%
+  
+  endlocal & (
+    set "%UserVarname%=%OutputVal%"
+  )
+exit /b 0
+
+
+:ReverseParams
+  REM Usage: 
+  REM   call :ReverseParams OutVar param1 param2 "param 3" ...
+  REM
+  REM Example:
+  REM 
+  REM   call :ReverseParams MyVar 123 456 "one word"
+  REM 
+  REM will result in:
+  REM   MyVar="one word" "456" "123" 
+  REM 
+  REM Limitation: Caller must not place a empty param ("") in the list,
+  REM because the empty param will mark the end of the whole param list.
+  REM
+  setlocal
+  set outvarName=%~1
+  set outputValue=
+:_ReverseParams_nextword
+  shift
+  if "%~1" == "" goto :_ReverseParams_end
+
+  set param=%~1
+  set outputValue="%param%" %outputValue%
+  goto :_ReverseParams_nextword
+
+:_ReverseParams_end
+  endlocal & (
+    set "%outvarName%=%outputValue%"
+  )
+exit /b 0
+
+
+:ReverseInVarName
+  REM Example:
+  REM 
+  REM   set MyVar=123 456 "one word"
+  REM   call :ReverseInVarName MyVar
+  REM 
+  REM will result in:
+  REM   MyVar="one word" "456" "123"
+  REM 
+  REM This function internally calls :ReverseParams to do the core work.
+  REM
+  setlocal
+  set UserVarname=%~1
+  set UserVarval=!%UserVarname%!
+  call :ReverseParams OutputVal %UserVarval%
+  
+  endlocal & (
+    set "%UserVarname%=%OutputVal%"
+  )
+exit /b 0
+

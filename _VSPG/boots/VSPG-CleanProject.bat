@@ -6,14 +6,16 @@ set bootsdir=%~dp0
 set bootsdir=%bootsdir:~0,-1%
 set _vspgINDENTS=%_vspgINDENTS%.
 
+REM Note: The clean order is SubbatSearchDirsWideToNarrow, which is reverse of SubbatSearchDirsNarrowToWide.
+
 set vspg_COPYORCLEAN_DO_CLEAN=1
 
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-CleanProject.bat "" %SubbatSearchDirsNarrowToWide%
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-CleanProject.bat "" %SubbatSearchDirsWideToNarrow%
 if errorlevel 1 exit /b 4
 
-
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-CopyOrClean.bat "" %SubbatSearchDirsNarrowToWide%
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-CopyOrClean.bat "" %SubbatSearchDirsWideToNarrow%
 if errorlevel 1 exit /b 4
+
 
 
 exit /b 0
