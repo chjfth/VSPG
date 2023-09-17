@@ -87,6 +87,7 @@ exit /b 0
   for %%a in ("%~2") do set "%~1=%%~fa"
 exit /b 0
 
+
 :GetParentDir
   REM Example
   REM
@@ -106,6 +107,7 @@ exit /b 0
   for %%g in ("%~2") do set parentdir=%%~dpg
   endlocal & ( set "%~1=%parentdir:~0,-1%" )
 exit /b 0
+
 
 :RelaPathToAbs
   REM Get absolute-path from a relative-path(relative to current .bat's dir). 

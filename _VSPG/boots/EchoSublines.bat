@@ -3,10 +3,15 @@ setlocal EnableDelayedExpansion
 
 : Function: EchoSublines
 :
-: Echo each parameter on their own line. 
-: If you have a list of filepaths to print, you can use this function 
-: to generate a friendly screen output.
-: Param1: This is the header line. It will have [batfilenam] prefix, and not indented.
+: Echo each parameter's content on its own line. 
+: If you have a list of filepaths stored in varname MyPathList,  
+: 
+:   set MyPathList=c:\abc "d:\def"
+:   call :EchoSublines.bat "MyPathList param dump:" %MyPathList%
+:
+: will print the list, each path on its own line, for easier eye browsing. 
+: 
+: Param1: The ~title~ line text. Current [batfilenam] will be printed first, then the ~title~.
 : Params remain: Each param is printed on their own line, indented with 4 spaces.
 :
 : Special Note:

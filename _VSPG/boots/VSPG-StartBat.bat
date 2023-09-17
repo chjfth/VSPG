@@ -10,7 +10,7 @@ set batfilenam=%~n0%~x0
 set bootsdir=%~dp0
 set bootsdir=%bootsdir:~0,-1%
 REM Use PathSplit to get parent directory of bootsdir.
-call "%bootsdir%\GetParentDir.bat" VSPG_StartDir "%bootsdir%"
+call :GetAbsPath VSPG_StartDir "%bootsdir%\.."
 set _vspgINDENTS=%_vspgINDENTS%.
 REM
 set SubworkBatfile=%~1
@@ -30,8 +30,8 @@ if not exist "%SubworkBatpath%" (
 
 REM ==== Prepare directory search list for VSPU-StartEnv.bat.
 
-call :GetParentDir ProjectDir_up "%ProjectDir%"
-call :GetParentDir ProjectDir_upup "%ProjectDir_up%"
+call :GetAbsPath ProjectDir_up   "%ProjectDir%\.."
+call :GetAbsPath ProjectDir_upup "%ProjectDir%\..\.."
 
 set StartEnvSearchDirs=^
   "%VSPG_StartDir%"^
@@ -125,18 +125,26 @@ exit /b %1
 	copy /b "%~1"+,, "%~1" >NUL 2>&1
 exit /b %ERRORLEVEL%
 
-:GetParentDir
-  REM Example
+:GetAbsPath
+  REM Get absolute-path from a relative-path(relative to %CD%). 
+  REM If already absolute, return as is.
+  REM If your input dir is relative to current .bat, use RelaPathToAbs instead.
+  REM Param1: Var name to receive output.
+  REM Param2: The input path.
   REM
-  REM   call :GetParentDir outputvar "c:\program files\d1\d2"
-  REM 
-  REM Return:
-  REM 
-  REM   outputvar=c:\program files\d2
-  setlocal
+  REM Feature 1: this function removes redundant . and .. from input path.
+  REM I
+  REM For example:
+  REM     call :GetAbsPath outvar C:\abc\.\def\..\123
+  REM Returns outvar:
+  REM     C:\abc\123
+  REM
+  REM Feature 2: It's pure string manipulation, so the input path doesn't have to 
+  REM actually exist on the file-system.
+  REM
   if "%~1"=="" exit /b 4
-  for %%g in ("%~2") do set parentdir=%%~dpg
-  endlocal & ( set "%~1=%parentdir:~0,-1%" )
+  if "%~2"=="" exit /b 4
+  for %%a in ("%~2") do set "%~1=%%~fa"
 exit /b 0
 
 
