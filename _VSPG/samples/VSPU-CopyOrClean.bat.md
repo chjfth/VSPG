@@ -1,5 +1,5 @@
 
-Demo program: [simprint](../../demo-vsprojs/simprint)
+Demo program: [simprint](../../demo-vsprojs/simprint/README.md)
 
 ## Triggering point
 
@@ -29,6 +29,9 @@ Sample1 is the simple case that shows how to copy one or more files to a single 
 
 - To make it copy compiler-output .exe/.dll to your desired folder, you need only one modification, that is, change the value of `output_folder`.
 - If you want more files to get copied to `%output_folder%`, that is still simple, just append more filename and/or filepath to `filenams_to_copy`.
+
+The [simprint project](../../demo-vsprojs/simprint/README.md) shows the actual use case.
+
 
 At sample1's heart, it calls VSPG's `CopyFilePatterns.bat` to do the hard work.
 
