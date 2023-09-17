@@ -8,7 +8,6 @@ int _tmain(int argc, TCHAR* argv[])
 	setlocale(LC_ALL, "");
 	
 	_tprintf(_T("Hello, simprint!\n"));
-	_tprintf(_T("sizeof(TCHAR)=%d\n"), sizeof(TCHAR));
+	_tprintf(_T("sizeof(TCHAR)=%d\n"), (int)sizeof(TCHAR));
 	return 0;
 }
-
