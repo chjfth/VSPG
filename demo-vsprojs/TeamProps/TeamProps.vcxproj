@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <!-- Win32(x86) -->
@@ -36,16 +36,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <!-- User project properties -->
+  
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{20221012-0000-0000-0000-132030000002}</ProjectGuid>
+    <ProjectGuid>{20230918-0000-0000-0000-135200000001}</ProjectGuid>
     <ProjectName>TeamProps</ProjectName>
-    <TargetName>TeamProps</TargetName>
+     <TargetName>TeamProps</TargetName>
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
+  
   <!-- Microsoft.Cpp.Default.props 
   	This should be after above "Global" Properties. (At least Linux .vcxproj demands this.) -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+
   <!-- Debug or Release -->
   <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -53,6 +57,7 @@
   <PropertyGroup Condition="$(Configuration.StartsWith('Release'))" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
   </PropertyGroup>
+
   <!-- Unicode or ANSI(MBCS) -->
   <PropertyGroup Condition="!$(Configuration.Contains('ANSI'))" Label="Configuration">
     <CharacterSet>Unicode</CharacterSet>
@@ -60,6 +65,7 @@
   <PropertyGroup Condition=" $(Configuration.Contains('ANSI'))" Label="Configuration">
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  
   <PropertyGroup>
     <!-- Referring to $(DefaultPlatformToolset), so that this .vcxproj 
       adapts automatically to lastest SDK on current Visual Studio version. 
@@ -74,7 +80,9 @@
       -->
     <PlatformToolset Condition="$(DefaultPlatformToolset)!=''">$(DefaultPlatformToolset)</PlatformToolset>
   </PropertyGroup>
+
   <!---->
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -82,12 +90,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+
   <!-- Better .obj/.exe/.pdb output folder structure -->
   <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(ProjectDir)obj-$(PlatformToolset)\$(Platform)\$(Configuration)\</IntDir>
+     <IntDir>$(ProjectDir)obj-$(PlatformToolset)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)bin-$(PlatformToolset)\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
+
   <!-- 
   	Compiler/Linker Behavior Settings : shared 
   -->
@@ -95,12 +105,16 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+
       <!-- Note: $(TargetPath) cannot receive a value in <PropertyGroup>, so it has to be in ItemDefinitionGroup. -->
+
       <!-- LIB's .pdb is final-pdb at compile stage, we want to see whole original xxx.lib name in PDB filename. -->
       <ProgramDataBaseFileName Condition="'$(TargetExt)'=='.lib' ">$(TargetPath).pdb</ProgramDataBaseFileName>
       <!-- EXE/DLL's .pdb is truly intermediate, so we put it in $(IntDir), with some fancy file-naming -->
       <ProgramDataBaseFileName Condition="'$(TargetExt)'!='.lib' ">$(IntDir)$(TargetName).$(PlatformToolset).pdb</ProgramDataBaseFileName>
+
       <PreprocessorDefinitions>;;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
       <AdditionalIncludeDirectories>.;;$(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -111,7 +125,7 @@
       <GenerateMapFile>true</GenerateMapFile>
       <AdditionalLibraryDirectories>;;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories Condition="'$(Platform)'=='Win32'">;;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'">;;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'"  >;;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SetupAPI.lib;;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <!-- Better build.log file naming -->
@@ -146,24 +160,28 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+
   <!-- 
     Source file list:
    -->
   <ItemGroup>
     <ClCompile Include="TeamProps.cpp" />
+
     <None Include="_VSPG\VSPU.props" />
     <None Include="_VSPG\VSPU-PostBuild.bat" />
   </ItemGroup>
+
   <!-- MSBuild system stock Cpp.targets -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+
   <!-- import VSPG start -->
   <PropertyGroup>
     <VSPG_BootsDir_NoTBS>..\..\_VSPG\boots</VSPG_BootsDir_NoTBS>
   </PropertyGroup>
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(VSPG_BootsDir_NoTBS)\_VSPG.props" Condition="exists('$(VSPG_BootsDir_NoTBS)\_VSPG.props')" />
+    <Import Project="$(VSPG_BootsDir_NoTBS)\_VSPG.props" Condition="exists('$(VSPG_BootsDir_NoTBS)\_VSPG.props')"/>
   </ImportGroup>
   <!-- import VSPG end -->
 </Project>
