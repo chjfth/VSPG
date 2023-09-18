@@ -1,5 +1,4 @@
-@REM This sample applies to all of 
-@REM Team-Prebuild.bat, Team-Postbuild.bat, Personal-Prebuild.bat, Personal-Postbuild.bat
+@REM This sample file applies to VSPU-Prebuild.bat and VSPU-Postbuild.bat .
 
 @echo off
 setlocal EnableDelayedExpansion
@@ -21,14 +20,11 @@ REM call :EchoVar TargetName
 
 REM ==== Prelude Above ====
 
-
-
 REM
 REM WRITE YOUR CMD/BAT commands here.
 REM Remember to check for error exitcode for each command.
 REM
 
-call "%batdir%\PreBuild-SubWCRev1.bat"
 if errorlevel 1 exit /b 4
 
 exit /b 0

@@ -40,14 +40,14 @@
   <!-- User project properties -->
   
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{20221012-0000-0000-0000-132030000001}</ProjectGuid>
+    <ProjectGuid>{20230918-0000-0000-0000-233643000001}</ProjectGuid>
     <ProjectName>embed-svnrev</ProjectName>
      <TargetName>embed-svnrev</TargetName>
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   
   <!-- Microsoft.Cpp.Default.props 
-  	For Linux .vcxproj, this should be after above "global" Properties. -->
+  	This should be after above "Global" Properties. (At least Linux .vcxproj demands this.) -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 
   <!-- Debug or Release -->
@@ -66,6 +66,23 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   
+  <PropertyGroup>
+    <!-- Referring to $(DefaultPlatformToolset), so that this .vcxproj 
+      adapts automatically to lastest SDK on current Visual Studio version. 
+     
+      $(DefaultPlatformToolset) has such values:
+        empty  on VC2010
+        "v120" on VC2013
+        "v140" on VC2015
+        "v141" on VC2017
+          "v142" on VC2019
+          "v143" on VC2022
+      -->
+    <PlatformToolset Condition="$(DefaultPlatformToolset)!=''">$(DefaultPlatformToolset)</PlatformToolset>
+  </PropertyGroup>
+
+  <!---->
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -126,6 +143,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
   </ItemDefinitionGroup>
   <!-- 
@@ -154,8 +172,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PreBuild-SubWCRev1.bat" />
-    <None Include="Team-Prebuild.bat" />
+    <None Include="_VSPG\PreBuild-SubWCRev.bat" />
+    <None Include="_VSPG\VSPU-Prebuild.bat" />
   </ItemGroup>
 
   <!-- MSBuild system stock Cpp.targets -->
@@ -168,7 +186,7 @@
     <VSPG_BootsDir_NoTBS>..\..\_VSPG\boots</VSPG_BootsDir_NoTBS>
   </PropertyGroup>
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(VSPG_BootsDir_NoTBS)\_VSPG.props" />
+    <Import Project="$(VSPG_BootsDir_NoTBS)\_VSPG.props" Condition="exists('$(VSPG_BootsDir_NoTBS)\_VSPG.props')"/>
   </ImportGroup>
   <!-- import VSPG end -->
 </Project>

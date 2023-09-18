@@ -11,10 +11,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PreBuild-SubWCRev1.bat">
+    <None Include="_VSPG\VSPU-Prebuild.bat">
       <Filter>_VSPG</Filter>
     </None>
-    <None Include="Team-Prebuild.bat">
+    <None Include="_VSPG\PreBuild-SubWCRev.bat">
       <Filter>_VSPG</Filter>
     </None>
   </ItemGroup>

@@ -1,6 +1,3 @@
-@REM This sample applies to all of 
-@REM Team-Prebuild.bat, Team-Postbuild.bat, Personal-Prebuild.bat, Personal-Postbuild.bat
-
 @echo off
 setlocal EnableDelayedExpansion
 
@@ -10,24 +7,12 @@ set batdir=%batdir:~0,-1%
 set _vspgINDENTS=%_vspgINDENTS%.
 call :Echos START from "%batdir%"
 
-REM == debugging purpose ==
-REM call :EchoVar SolutionDir
-REM call :EchoVar ProjectDir
-REM call :EchoVar BuildConf
-REM call :EchoVar IntrmDir
-REM call :EchoVar TargetDir
-REM call :EchoVar PlatformName
-REM call :EchoVar TargetName
-
-REM ==== Prelude Above ====
-
-
-
 REM
 REM WRITE YOUR CMD/BAT commands here.
 REM Remember to check for error exitcode for each command.
 REM
 
+call "%batdir%\PreBuild-SubWCRev.bat"
 if errorlevel 1 exit /b 4
 
 exit /b 0

@@ -106,7 +106,7 @@ you have placed the `_VSPG\boots` folder, so that `_VSPG.props` in that dir
 will be automatically imported into VSIDE when you open that project.
 
 Of course, you can place `_VSPG` folder at other places, for example, in parent
-dir of .vcxproj so that multiple .vcxproj shares a single copy of VSPG framework code.
+dir of .vcxproj so that multiple .vcxproj share a single copy of VSPG framework code.
 Just change `VSPG_BootsDir_NoTBS`'s directory-prefix accordingly. 
 If you want to use relative dir-prefix, that's OK and 
 it is relative to $(ProjectDir), that is where foo.vcxproj resides.
