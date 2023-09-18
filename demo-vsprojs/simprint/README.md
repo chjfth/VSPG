@@ -16,7 +16,7 @@ project team should take this action when building this project), we place the h
 and that hook file is committed to source control like git/svn.
 * If a team member wants to initiate some hook action according to his own preference (for example,
 copy the output exe to a remote-machine shared folder for remote debugging), then the hook file 
-if created side-by-side with .vcxproj, and the hook file is not committed to source control.
+is created side-by-side with .vcxproj, and the hook file is not committed to source control.
 
 ## Content of `VSPU-CopyOrClean.bat`
 

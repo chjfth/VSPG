@@ -3,17 +3,17 @@
 
   <Import Project="$(MSBuildThisFileDirectory)_vspg_ver.props" />
 
-  <Import Project="$(MSBuildThisFileDirectory)..\VSPG.Team.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPG.Team.props')" />
-  <Import Project="$(MSBuildThisFileDirectory)..\VSPG.Personal.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPG.Personal.props')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\VSPU.props" Condition="exists('$(MSBuildThisFileDirectory)..\VSPU.props')" />
 
-  <Import Project="$(MSBuildProjectDirectory)\VSPG.Team.props" Condition="exists('$(MSBuildProjectDirectory)\VSPG.Team.props')" />
-  <Import Project="$(MSBuildProjectDirectory)\VSPG.Personal.props" Condition="exists('$(MSBuildProjectDirectory)\VSPG.Personal.props')" />
+  <Import Project="$(MSBuildProjectDirectory)\_VSPG\VSPU.props" Condition="exists('$(MSBuildProjectDirectory)\_VSPG\VSPU.props')" />
+  <Import Project="$(MSBuildProjectDirectory)\VSPU.props" Condition="exists('$(MSBuildProjectDirectory)\VSPU.props')" />
 
   <!-- Define some variables to use later. -->
 
   <!-- Note: Only after Microsoft.Cpp.targets is imported, $(TargetFileName) and $(TargetName) is filled with values. -->
   <PropertyGroup>
     <ExportEnvvarsForVSPG>
+      REM These are .bat commands.
       set "vspg_ver=$(vspg_ver)"
       set "PlatformShortName=$(PlatformShortName)"
       set "PlatformToolsetVersion=$(PlatformToolsetVersion)"
