@@ -33,8 +33,7 @@
       set "TargetExt=$(TargetExt)"
       set "IntDir=$(IntDir.TrimEnd('\'))"
       set "IntrmDir=$(IntDir.TrimEnd('\'))"
-      $(ExportEnvvarsForVSPG_Team)
-      $(ExportEnvvarsForVSPG_Personal)
+      $(ExportEnvvarsForVSPG)
     </ExportEnvvarsForVSPG>
 
   </PropertyGroup>

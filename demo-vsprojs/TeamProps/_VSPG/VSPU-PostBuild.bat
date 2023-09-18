@@ -1,6 +1,3 @@
-@REM This sample applies to all of 
-@REM Team-Prebuild.bat, Team-Postbuild.bat, Personal-Prebuild.bat, Personal-Postbuild.bat
-
 @echo off
 setlocal EnableDelayedExpansion
 
@@ -18,7 +15,6 @@ REM
 
 
 call :EchoVar TeamName
-
 call :EchoVar ConfigurationType
 call :EchoVar ProjectGuid
 
