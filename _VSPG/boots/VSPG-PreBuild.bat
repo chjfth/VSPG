@@ -21,7 +21,7 @@ if defined vspg_DO_SHOW_VERBOSE (
 
 
 REM ==== Search for VSPU-Prebuild.bat-s and call them. ====
-call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-PreBuild.bat "" %SubbatSearchDirsNarrowToWide%
+call "%bootsdir%\SearchAndExecSubbat.bat" Greedy1 VSPU-PreBuild.bat "" %SubbatSearchDirsWideToNarrow%
 if errorlevel 1 exit /b 4
 
 

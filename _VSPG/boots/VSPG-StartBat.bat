@@ -59,8 +59,8 @@ REM resume the search(to get accumulating effect), user bat should manually call
 
 set SubbatSearchDirsNarrowToWide=^
   %vspg_USER_BAT_SEARCH_DIRS%^
-  "%ProjectDir%\_VSPG"^
   "%ProjectDir%"^
+  "%ProjectDir%\_VSPG"^
   "%VSPG_StartDir%"
 
 rem Remove *duplicate items* in SubbatSearchDirsNarrowToWide, so that %vspg_USER_BAT_SEARCH_DIRS%
