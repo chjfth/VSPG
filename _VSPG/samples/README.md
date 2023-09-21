@@ -34,6 +34,8 @@ batch var `SubbatSearchDirsNarrowToWide`):
 | %vspg_USER_BAT_SEARCH_DIRS% | User-defined directory listing. User can define it in `VSPU-StartEnv.bat` triggering file. |
 | %ProjectDir%              | The .vcxproj directory. |
 | %ProjectDir%\\_VSPG        | The `_VSPG` subdir in the .vcxproj directory. |
+| %SolutionDir%              | (v606+) The .sln directory. |
+| %SolutionDir%\\_VSPG        | (v606+) The `_VSPG` subdir in the .sln directory. |
 | %VSPG_StartDir%           | VSPG framework's directory, precisely, the parent dir of `_VSPG.props`. |
 
 The above search order is considered narrow-to-wide, it is used for `VSPU-Postbuild.bat` and copy-phase of `VSPU-CopyOrClean.bat`.

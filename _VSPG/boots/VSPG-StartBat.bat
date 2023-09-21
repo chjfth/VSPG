@@ -61,6 +61,8 @@ set SubbatSearchDirsNarrowToWide=^
   %vspg_USER_BAT_SEARCH_DIRS%^
   "%ProjectDir%"^
   "%ProjectDir%\_VSPG"^
+  "%SolutionDir%"^
+  "%SolutionDir%\_VSPG"^
   "%VSPG_StartDir%"
 
 rem Remove *duplicate items* in SubbatSearchDirsNarrowToWide, so that %vspg_USER_BAT_SEARCH_DIRS%
