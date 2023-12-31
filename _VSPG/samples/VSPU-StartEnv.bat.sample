@@ -19,6 +19,13 @@ endlocal & (
 	REM So be conservative, define as little env-var as possible.
 	REM I suggest to prefix them with _tmp_ if you don't use them after this bat exits.
 	set _tmp_=%parentdir%
+	
+	set se_batdir=%batdir%
+	set se_parentdir=%parentdir%
+
+	REM And be aware: After `endlocal(...)`, to refer to the dir of this VSPU-StartEnv.bat, 
+	REM you should use %se_batdir% instead of %batdir%, because %batdir% will be restored 
+	REM back to our caller's dir. Our caller is some bat from d:\gitw\VSPG\_VSPG\boots .
 )
 
 
@@ -31,7 +38,7 @@ REM ################ KEY CONTENT HERE ################
 
 rem ==== example below ====
 rem call :GetAbsPath dirCodeRoot "%ProjectDir%\.."
-rem call :SetEnvVar vspg_USER_BAT_SEARCH_DIRS="%dirCodeRoot%\_VSPG" "%dirCodeRoot%"
+rem call :SetEnvVar vspg_USER_BAT_SEARCH_DIRS="%dirCodeRoot%\_VSPG" "%dirCodeRoot%" "%se_batdir%"
 
 exit /b 0
 
