@@ -1,0 +1,5 @@
+# For following files(*.bat, *.bat.sample, *.props),
+# always use CRLF as line-ending, even on Linux.
+
+*.bat*      text eol=crlf
+*.prop      text eol=crlf
