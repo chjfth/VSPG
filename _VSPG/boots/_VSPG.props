@@ -16,6 +16,7 @@
       REM These are .bat commands.
       set "vspg_ver=$(vspg_ver)"
       set "PlatformShortName=$(PlatformShortName)"
+      set "PlatformX=$(PlatformX)"
       set "PlatformToolsetVersion=$(PlatformToolsetVersion)"
       set "PlatformToolset=$(PlatformToolset)"
       set "ProjectName=$(ProjectName)"
