@@ -72,7 +72,7 @@
   <!--   assign <showvars> in VSPU.props ([20250409.c1]).                                    -->
   <!-- ====================================================================== -->
 
-  <Target Name="VSPG_ShowLoaded" BeforeTargets="PrepareForBuild">
+  <Target Name="VSPG_ShowLoaded" BeforeTargets="InitializeBuildStatus">
     <Message Text="VSPG version $(vspg_ver) loaded from: $([System.IO.Path]::GetFullPath($(VSPG_BootsDir_NoTBS)))" Importance="high" />
   </Target>
 
@@ -80,7 +80,7 @@
     <ShowVars Include="$(showvars)" />
   </ItemGroup>
 
-  <Target Name="VSPG_ShowVars" Condition="'$(showvars)'!=''" BeforeTargets="PrepareForBuild">
+  <Target Name="VSPG_ShowVars" Condition="'$(showvars)'!=''" BeforeTargets="InitializeBuildStatus">
     <Message Text="================ [[VSPG_ShowVars]] start ================" />
     <Message Text="    %(showvars.Identity)=$(%(showvars.Identity))" />
     <Message Text="================ [[VSPG_ShowVars]] end ================" />
