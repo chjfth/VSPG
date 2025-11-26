@@ -28,7 +28,7 @@ call "%_vspg_bootsdir%\CopyFilePatterns.bat" ^
 	"%output_folder%" ^
 	%filenams_to_copy%
 
-if errorlevel 1 exit b 4
+if not !errorlevel!==0 exit /b 4
 
 REM //// Notes ////
 REM filenams_to_copy is just a bat varname you choose, any valid varname is OK.

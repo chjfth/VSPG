@@ -34,6 +34,7 @@
       set "TargetExt=$(TargetExt)"
       set "IntDir=$(IntDir.TrimEnd('\'))"
       set "IntrmDir=$(IntDir.TrimEnd('\'))"
+      set "VSPG_ExeDataFiles=$([System.Text.RegularExpressions.Regex]::Replace($(VSPG_ExeDataFiles.Trim()), '\s*;\s*', ';'))"
       $(ExportEnvvarsForVSPG)
     </ExportEnvvarsForVSPG>
 
