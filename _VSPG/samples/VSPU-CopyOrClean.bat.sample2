@@ -30,25 +30,25 @@ REM
 REM set AGILE_COPY_PATTERNS="%ExeDllDir%\%TargetFilenam%"
 REM set AGILE_COPY_PATTERNS=*.exe *.dll
 REM 
-REM		This sets what files (concrete filenames, separated by spaces) or 
+REM 	This sets what files (concrete filenames, separated by spaces) or 
 REM     file-pattern (*.exe etc) to copy or clean. You can mix both.
+REM 
+REM 	This can be absolute path or relative path. If relative path, it is relative
+REM 	to $(TargetDir) from VSIDE, also referred to as %ExeDllDir% in this bat.
+REM 
+REM 	This can be a list of multiple file/file-patterns separated by spaces.
+REM 	It means you can have multiple barns, each barn gets one copy.
+REM 
+REM 	NOTE: If a pattern/filepath has space char, you must wrap it in double-quotes.
 REM	
-REM		This can be absolute path or relative path. If relative path, it is relative
-REM		to $(TargetDir) from VSIDE, also referred to as %ExeDllDir% in this bat.
-REM	
-REM		This can be a list of multiple file/file-patterns separated by spaces.
-REM		It means you can have multiple barns, each barn gets one copy.
-REM	
-REM		NOTE: If a pattern/filepath has space char, you must wrap it in double-quotes.
-REM	
-REM	(2) AGILE_BARN_DIRS
+REM (2) AGILE_BARN_DIRS
 REM 
 rem set AGILE_BARN_DIRS=d:\barn "d:\barn output"
 REM
-REM		You can list multiple barn dirs, separated by spaces.
+REM 	You can list multiple barn dirs, separated by spaces.
 REM 
-REM		Also, if a barn dir contains space char, you must wrap that dir-path in double-quotes.
-REM	
+REM 	Also, if a barn dir contains space char, you must wrap that dir-path in double-quotes.
+REM 
 REM Hint: You can set/modify above AGILE_xxx vars directly in this bat file, 
 REM       or set them from parent environment.
 REM 
