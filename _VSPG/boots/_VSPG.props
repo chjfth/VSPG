@@ -12,6 +12,7 @@
 
   <!-- Note: Only after Microsoft.Cpp.targets is imported, $(TargetFileName) and $(TargetName) is filled with values. -->
   <PropertyGroup>
+    <VspgTrimChars5>&#x20;&#x09;&#x0D;&#x0A;;</VspgTrimChars5>
     <ExportEnvvarsForVSPG>
       REM These are .bat commands.
       set "vspg_ver=$(vspg_ver)"
@@ -34,7 +35,7 @@
       set "TargetExt=$(TargetExt)"
       set "IntDir=$(IntDir.TrimEnd('\'))"
       set "IntrmDir=$(IntDir.TrimEnd('\'))"
-      set "VSPG_ExeDataFiles=$([System.Text.RegularExpressions.Regex]::Replace($(VSPG_ExeDataFiles.Trim()), '\s*;\s*', ';'))"
+      set "VSPG_ExeDataFiles=$([System.Text.RegularExpressions.Regex]::Replace($(VSPG_ExeDataFiles.Trim($(VspgTrimChars5))), '\s*;\s*', ';'))"
       $(ExportEnvvarsForVSPG)
     </ExportEnvvarsForVSPG>
 
