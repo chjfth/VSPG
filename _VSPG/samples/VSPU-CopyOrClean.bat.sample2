@@ -79,6 +79,25 @@ REM
 call "%_vspg_bootsdir%\CopyFilePatternsToDirs.bat" "%ExeDllDir%" AGILE_COPY_PATTERNS AGILE_BARN_DIRS "%BARN_SUBDIR%"
 if not !errorlevel!==0 exit /b 4
 
+REM Copy VSPG_ExeDataFiles files if any...
+if defined VSPG_ExeDataFiles (
+	call :Echos Processing VSPG_ExeDataFiles start ...
+	
+	set AGILE_COPY_PATTERNS="%VSPG_ExeDataFiles:;=" "%"
+	set EXE_SELF_BARN_DIR=%ExeDllDir%
+
+	REM Let local EXE see those files.
+	call "%_vspg_bootsdir%\CopyFilePatternsToDirs.bat" "%ProjectDir%" AGILE_COPY_PATTERNS EXE_SELF_BARN_DIR ""
+	if not !errorlevel!==0 exit /b 4
+
+	REM Let remote EXE see those files.
+	call "%_vspg_bootsdir%\CopyFilePatternsToDirs.bat" "%ProjectDir%" AGILE_COPY_PATTERNS AGILE_BARN_DIRS "%BARN_SUBDIR%"
+	if not !errorlevel!==0 exit /b 4
+
+	call :Echos Processing VSPG_ExeDataFiles done .
+)
+
+
 exit /b 0
 
 

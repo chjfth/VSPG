@@ -30,8 +30,11 @@ if "%~3" == "" (
 :CopyFilePatterns
 REM Copy files of various patterns to destination directory(folder).
 REM We need this bcz Windows `copy` cmd only accepts one wildcard pattern per execution.
+REM
 REM Param1: One source folder.
+REM
 REM Param2: One destination folder.
+REM
 REM Params remaining: Each one is a pattern, like: *.exe, *.dll, foo.exe .
 REM Memo for pattern: 
 REM [Dir-prefix in pattern]
@@ -42,16 +45,23 @@ REM      d:\test\*.dll
 REM   then it is considered absolute path, and Param1 is ignored for this pattern.
 REM [Wildcard pattern]
 REM * For a wildcard pattern, this function currently does not recurse into subdirectory.
+REM
 REM [Copy and rename]
 REM * For a non-wildcard pattern, a new destination filename can be assigned, using '#'.
 REM   Example:
 REM      d:\test\foo.exe#foo-x64.exe
 REM   In destination dir, there will be foo-x64.exe .
 REM 
+REM [Keep relative dir]
+REM If a pattern starts with ".\", for example:
+REM 	.\..\..\_data\english-words-22k.txt
+REM then the subdir part "..\..\_data" will be created for destination.
+REM
 REM [Env-var input]
 REM If env-var vspg_COPYORCLEAN_DO_CLEAN=1, destination file is actually deleted,
 REM -- but source-file is not deleted.
 REM This feature is used by VSPU-CopyOrClean.bat .
+REM
 REM [When doing delete]
 REM If a file pattern contains wildcard(* or ?), then the wildcard is matched
 REM against source folder instead of the target folder.
@@ -129,13 +139,20 @@ REM against source folder instead of the target folder.
     REM Now %g is a concrete filepath.
 
     set seefile=%%~g
+    
+	call :IsStartsWithDotSlash isKeepRelaDirs "!pattern!"
 
     if not defined is_override_filename (
       rem Each wildcard expansion may get a new newfilenam.
       call "%batdir%\PathSplit.bat" "!seefile!" __nouse_dir newfilenam
     )
     
-    set curdstpath=%DirDst%\!newfilenam!
+    if "!isKeepRelaDirs!" == "1" (
+      call "%batdir%\PathSplitKeepRela.bat" "!pattern!" rela_dirs __nouse_filenam
+      set curdstpath=%DirDst%\!rela_dirs!\!newfilenam!
+    ) else (
+      set curdstpath=%DirDst%\!newfilenam!
+    )
 
     if "%vspg_COPYORCLEAN_DO_CLEAN%" == "1" (
       if exist "!curdstpath!" (
@@ -175,6 +192,8 @@ REM -- End of :CopyFilePatterns
 
 echo [VSPG-INTERNAL-ERROR] SHOULD NOT REACH HERE.
 exit /b 444
+
+
 
 
 REM =============================
@@ -221,5 +240,26 @@ exit /b 0
   endlocal & (
     set "%~2=%sub1%"
     set "%~3=%sub2%"
+  )
+exit /b 0
+
+:IsStartsWithDotSlash OutputVar InputPath
+REM Check whether InputPath starts with .\
+REM For example:
+REM		.\foo.txt
+REM		.\..\bar.txt
+REM
+REM OutputVar=1, yes
+REM OutputVar=0, no
+  setlocal
+  for /F "delims=\ tokens=1,*" %%a in ("%~2") do (
+    set firstchar=%%a
+  )
+  if "%firstchar%" == "." (
+    REM found
+  	endlocal & (set "%~1=1")
+  ) else (
+  	REM not found
+  	endlocal & (set "%~1=0")
   )
 exit /b 0
