@@ -21,7 +21,7 @@ REM
 REM The actual resulting file is determined by current Platform and BuildConf you build against.
 REM
 set filenams_to_copy=%TargetFileNam%
-set output_folder=d:\mybin\%PlatformName%\%BuildConf%
+set output_folder=d:\mybin\%PlatformName%\%BuildConf%\.
 REM
 call "%_vspg_bootsdir%\CopyFilePatterns.bat" ^
 	"%ExeDllDir%" ^
